@@ -10,8 +10,8 @@
 <body>
 	<?php
 		require_once 'function.php';
-		$xhtmlVnExpress = getContent('https://vnexpress.net/rss/the-thao.rss');
-		$xhtmlDanTri    = getContent2('https://dantri.com.vn/the-thao.rss');
+		// $xhtmlVnExpress = getContent('https://vnexpress.net/rss/the-thao.rss');
+		// $xhtmlDanTri    = getContent2('https://dantri.com.vn/the-thao.rss');
 
 	?>
 	<div class="container list-quiz">
@@ -22,14 +22,25 @@
 				<li><a href="#dantri" data-toggle="tab">Dân Trí</a></li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
-				<div id="vnexpress" class="tab-pane fade in active"><?= $xhtmlVnExpress ?></div>
-				<div id="dantri" class="tab-pane fade"><?= $xhtmlDanTri ?></div>
+				<div id="vnexpress" class="tab-pane fade in active"></div>
+				<div id="dantri" class="tab-pane fade"></div>
 			</div>
 		</div>
 	</div>
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<!-- <script src="js/paging.js"></script> -->
+	<script type="text/javascript">
+		var loadDT = false;
+		$(document).ready(function(){
+			$('#vnexpress').load('load-data.php', {'type': 'vnexpress'});
+			$('a[href=#dantri]').click(function(){
+				if(loadDT == false){
+					$('#dantri').load('load-data.php', {'type': 'dantri'});
+				}
+				loadDT = true;
+			});
+		});
+	</script>
 </body>
 </html>
